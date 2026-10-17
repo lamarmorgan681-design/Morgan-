@@ -1,0 +1,924 @@
+``html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100f11">
+
+    <title>MORGAN — مساحتك الخاصة</title>
+
+    <meta
+        name="description"
+        content="MORGAN مساحة شخصية لتنظيم المهام والأهداف ومتابعة التقدم."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- واجهة الموقع -->
+    <div class="app-shell">
+
+        <!-- القائمة الجانبية -->
+        <aside class="sidebar" id="sidebar">
+
+            <a href="#dashboard" class="brand" data-section="dashboard">
+                <span class="brand-symbol">M</span>
+
+                <span class="brand-name">
+                    MORGAN
+                    <small data-i18n="personalSpace">مساحتك الخاصة</small>
+                </span>
+            </a>
+
+            <div class="sidebar-label" data-i18n="workspace">
+                مساحة العمل
+            </div>
+
+            <nav class="navigation" aria-label="التنقل الرئيسي">
+
+                <button
+                    class="nav-item active"
+                    type="button"
+                    data-section="dashboard"
+                >
+                    <span class="nav-icon">◈</span>
+                    <span data-i18n="dashboard">لوحة التحكم</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="daily"
+                >
+                    <span class="nav-icon">☷</span>
+                    <span data-i18n="dailyTasks">المهام اليومية</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="weekly"
+                >
+                    <span class="nav-icon">◷</span>
+                    <span data-i18n="weeklyGoals">الأهداف الأسبوعية</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="monthly"
+                >
+                    <span class="nav-icon">▦</span>
+                    <span data-i18n="monthlyGoals">الأهداف الشهرية</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="yearly"
+                >
+                    <span class="nav-icon">◇</span>
+                    <span data-i18n="yearlyGoals">الأهداف السنوية</span>
+                </button>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="reports"
+                >
+                    <span class="nav-icon">▥</span>
+                    <span data-i18n="reports">التقارير والإنجازات</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-label" data-i18n="preferences">
+                    التفضيلات
+                </div>
+
+                <button
+                    class="nav-item"
+                    type="button"
+                    data-section="settings"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span data-i18n="settings">الإعدادات</span>
+                </button>
+
+                <div class="sidebar-profile">
+                    <div class="profile-avatar">M</div>
+
+                    <div class="profile-details">
+                        <strong data-i18n="mySpace">مساحتي</strong>
+                        <span data-i18n="localAccount">مساحة شخصية</span>
+                    </div>
+
+                    <span class="profile-status" title="Local mode"></span>
+                </div>
+
+            </div>
+        </aside>
+
+
+        <!-- المنطقة الرئيسية -->
+        <main class="main-area">
+
+            <!-- الشريط العلوي -->
+            <header class="topbar">
+
+                <div class="topbar-start">
+
+                    <button
+                        class="icon-button menu-toggle"
+                        id="menuToggle"
+                        type="button"
+                        aria-label="فتح القائمة"
+                        aria-expanded="false"
+                    >
+                        ☰
+                    </button>
+
+                    <div class="breadcrumb">
+                        <span data-i18n="breadcrumbHome">مساحتي</span>
+                        <span class="breadcrumb-divider">/</span>
+                        <strong id="currentSectionTitle">لوحة التحكم</strong>
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <div class="date-display" id="currentDate">
+                        <!-- التاريخ يضاف بواسطة JavaScript -->
+                    </div>
+
+                    <button
+                        class="language-button"
+                        id="languageToggle"
+                        type="button"
+                        aria-label="تغيير اللغة"
+                    >
+                        EN
+                    </button>
+
+                </div>
+            </header>
+
+
+            <!-- محتوى الأقسام -->
+            <div class="page-content">
+
+                <!-- القسم الأول: لوحة التحكم -->
+                <section
+                    class="content-section active"
+                    id="section-dashboard"
+                    data-title="dashboard"
+                >
+
+                    <div class="welcome-header">
+
+                        <div>
+                            <p class="eyebrow" data-i18n="dashboardEyebrow">
+                                مساحتك. قراراتك. تقدمك.
+                            </p>
+
+                            <h1>
+                                <span data-i18n="welcome">أهلًا بعودتك.</span>
+                                <span class="welcome-accent" data-i18n="ready">
+                                    مستعدة نبدأ؟
+                                </span>
+                            </h1>
+
+                            <p class="section-description" data-i18n="dashboardIntro">
+                                كل خطوة صغيرة بتقربك من الحياة اللي بتبنيها.
+                            </p>
+                        </div>
+
+                        <div class="today-badge">
+                            <span class="today-dot"></span>
+                            <span data-i18n="today">يوم جديد</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- بطاقة المقدمة -->
+                    <div class="hero-card">
+
+                        <div class="hero-content">
+                            <span class="hero-overline" data-i18n="dailyFocus">
+                                تركيز اليوم
+                            </span>
+
+                            <h2 data-i18n="heroTitle">
+                                مش مطلوب منك تخلصي كل حاجة.
+                            </h2>
+
+                            <p data-i18n="heroDescription">
+                                المطلوب إنك تعرفي إيه الأهم، وتاخدي خطوة حقيقية ناحيته.
+                            </p>
+
+                            <button
+                                class="primary-button"
+                                type="button"
+                                data-go-to="daily"
+                            >
+                                <span data-i18n="organizeDay">نظّمي يومك</span>
+                                <span aria-hidden="true">←</span>
+                            </button>
+                        </div>
+
+                        <div class="hero-decoration" aria-hidden="true">
+                            <div class="decoration-circle circle-one"></div>
+                            <div class="decoration-circle circle-two"></div>
+                            <div class="decoration-center">M</div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- إحصائيات سريعة -->
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow" data-i18n="overview">نظرة عامة</p>
+                            <h2 data-i18n="progressOverview">ملخص تقدمك</h2>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="dailyTasks">
+                                    المهام اليومية
+                                </span>
+                                <span class="stat-icon">☷</span>
+                            </div>
+
+                            <div class="stat-value" id="dashboardTaskCount">0</div>
+
+                            <div class="stat-footnote" data-i18n="tasksRegistered">
+                                مهام مسجلة
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="completedTasks">
+                                    المهام المكتملة
+                                </span>
+                                <span class="stat-icon">✓</span>
+                            </div>
+
+                            <div class="stat-value" id="dashboardCompletedCount">0</div>
+
+                            <div class="stat-footnote" data-i18n="keepGoing">
+                                استمري في التقدم
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="activeGoals">
+                                    الأهداف النشطة
+                                </span>
+                                <span class="stat-icon">◇</span>
+                            </div>
+
+                            <div class="stat-value" id="dashboardGoalCount">0</div>
+
+                            <div class="stat-footnote" data-i18n="goalsRegistered">
+                                أهداف مسجلة
+                            </div>
+                        </article>
+
+                        <article class="stat-card highlight-stat">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="overallProgress">
+                                    التقدم الإجمالي
+                                </span>
+                                <span class="stat-icon">↗</span>
+                            </div>
+
+                            <div class="stat-value">
+                                <span id="dashboardProgress">0</span>%
+                            </div>
+
+                            <div class="progress-track">
+                                <div
+                                    class="progress-fill"
+                                    id="dashboardProgressBar"
+                                    style="width: 0%"
+                                ></div>
+                            </div>
+                        </article>
+
+                    </div>
+
+
+                    <!-- المهام القادمة -->
+                    <div class="dashboard-grid">
+
+                        <article class="panel tasks-preview-panel">
+
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="eyebrow" data-i18n="yourList">
+                                        قائمتك
+                                    </p>
+
+                                    <h2 data-i18n="todayTasks">
+                                        مهام اليوم
+                                    </h2>
+                                </div>
+
+                                <button
+                                    class="text-button"
+                                    type="button"
+                                    data-go-to="daily"
+                                    data-i18n="viewAll"
+                                >
+                                    عرض الكل
+                                </button>
+                            </div>
+
+                            <div id="dashboardTaskPreview" class="task-preview-list">
+                                <!-- تعرض المهام بواسطة JavaScript -->
+                            </div>
+
+                            <div class="empty-state" id="dashboardTasksEmpty">
+                                <span class="empty-state-icon">✳</span>
+                                <p data-i18n="noTasksYet">
+                                    لسه مفيش مهام. ابدئي بأول خطوة.
+                                </p>
+
+                                <button
+                                    class="text-button"
+                                    type="button"
+                                    data-go-to="daily"
+                                    data-i18n="addFirstTask"
+                                >
+                                    أضيفي أول مهمة
+                                </button>
+                            </div>
+
+                        </article>
+
+
+                        <!-- التقدم -->
+                        <article class="panel progress-panel">
+
+                            <div class="panel-heading">
+                                <div>
+                                    <p class="eyebrow" data-i18n="bigPicture">
+                                        الصورة الكاملة
+                                    </p>
+
+                                    <h2 data-i18n="goalsProgress">
+                                        تقدم الأهداف
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="goal-progress-item">
+                                <div class="progress-item-heading">
+                                    <span data-i18n="weeklyGoals">الأهداف الأسبوعية</span>
+                                    <strong id="weeklyProgressText">0%</strong>
+                                </div>
+
+                                <div class="progress-track">
+                                    <div
+                                        class="progress-fill"
+                                        id="weeklyProgressBar"
+                                        style="width: 0%"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="goal-progress-item">
+                                <div class="progress-item-heading">
+                                    <span data-i18n="monthlyGoals">الأهداف الشهرية</span>
+                                    <strong id="monthlyProgressText">0%</strong>
+                                </div>
+
+                                <div class="progress-track">
+                                    <div
+                                        class="progress-fill"
+                                        id="monthlyProgressBar"
+                                        style="width: 0%"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="goal-progress-item">
+                                <div class="progress-item-heading">
+                                    <span data-i18n="yearlyGoals">الأهداف السنوية</span>
+                                    <strong id="yearlyProgressText">0%</strong>
+                                </div>
+
+                                <div class="progress-track">
+                                    <div
+                                        class="progress-fill"
+                                        id="yearlyProgressBar"
+                                        style="width: 0%"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="progress-note">
+                                <span class="progress-note-icon">✦</span>
+
+                                <p data-i18n="progressNote">
+                                    التقدم الحقيقي مش سباق؛ المهم إنك تكملي.
+                                </p>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+
+                <!-- القسم الثاني: المهام اليومية -->
+                <section
+                    class="content-section"
+                    id="section-daily"
+                    data-title="dailyTasks"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="dailyEyebrow">
+                            خطوة بخطوة
+                        </p>
+
+                        <h1 data-i18n="dailyTitle">المهام اليومية</h1>
+
+                        <p class="section-description" data-i18n="dailyDescription">
+                            رتّبي أولوياتك، وتابعي كل مهمة لحد ما تخلص.
+                        </p>
+                    </div>
+
+                    <article class="panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h2 data-i18n="addTaskTitle">مهمة جديدة</h2>
+                                <p class="muted-text" data-i18n="addTaskDescription">
+                                    اكتبي المهمة اللي عايزة تنجزيها.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="taskForm" class="entry-form">
+
+                            <label class="visually-hidden" for="taskInput" data-i18n="taskInputLabel">
+                                اسم المهمة
+                            </label>
+
+                            <input
+                                id="taskInput"
+                                name="task"
+                                type="text"
+                                maxlength="200"
+                                placeholder="مثال: مذاكرة الإنجليزي"
+                                data-i18n-placeholder="taskPlaceholder"
+                                autocomplete="off"
+                                required
+                            >
+
+                            <button class="primary-button" type="submit">
+                                <span aria-hidden="true">+</span>
+                                <span data-i18n="addTask">إضافة مهمة</span>
+                            </button>
+
+                        </form>
+
+                        <div class="list-summary">
+                            <span data-i18n="yourTasks">قائمة المهام</span>
+                            <span class="count-badge" id="taskCount">0</span>
+                        </div>
+
+                        <div id="taskList" class="task-list"></div>
+
+                        <div class="empty-state" id="emptyTasks">
+                            <span class="empty-state-icon">☷</span>
+                            <p data-i18n="emptyTasksMessage">
+                                قائمتك فاضية حاليًا. أضيفي أول مهمة وابدئي.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- القسم الثالث: الأهداف الأسبوعية -->
+                <section
+                    class="content-section"
+                    id="section-weekly"
+                    data-title="weeklyGoals"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="weeklyEyebrow">
+                            خطتك للأيام السبعة القادمة
+                        </p>
+
+                        <h1 data-i18n="weeklyTitle">الأهداف الأسبوعية</h1>
+
+                        <p class="section-description" data-i18n="weeklyDescription">
+                            حوّلي خططك الكبيرة إلى أهداف واضحة لهذا الأسبوع.
+                        </p>
+                    </div>
+
+                    <article class="panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h2 data-i18n="weeklyListTitle">قائمة أهداف الأسبوع</h2>
+                                <p class="muted-text" data-i18n="weeklyListDescription">
+                                    حددي ما تريدين تحقيقه خلال هذا الأسبوع.
+                                </p>
+                            </div>
+
+                            <span class="count-badge" id="weeklyGoalCount">0</span>
+                        </div>
+
+                        <form id="weeklyGoalForm" class="entry-form">
+
+                            <label class="visually-hidden" for="weeklyGoalInput" data-i18n="weeklyInputLabel">
+                                الهدف الأسبوعي
+                            </label>
+
+                            <input
+                                id="weeklyGoalInput"
+                                type="text"
+                                maxlength="200"
+                                placeholder="اكتبي هدفك الأسبوعي..."
+                                data-i18n-placeholder="weeklyPlaceholder"
+                                required
+                            >
+
+                            <button class="primary-button" type="submit">
+                                <span aria-hidden="true">+</span>
+                                <span data-i18n="addGoal">إضافة هدف</span>
+                            </button>
+
+                        </form>
+
+                        <div id="weeklyGoalList" class="goal-list"></div>
+
+                        <div class="empty-state" id="weeklyGoalsEmpty">
+                            <span class="empty-state-icon">◷</span>
+                            <p data-i18n="emptyWeekly">
+                                مفيش أهداف أسبوعية لسه.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- القسم الرابع: الأهداف الشهرية -->
+                <section
+                    class="content-section"
+                    id="section-monthly"
+                    data-title="monthlyGoals"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="monthlyEyebrow">
+                            إنجازات أكبر في خطوات أصغر
+                        </p>
+
+                        <h1 data-i18n="monthlyTitle">الأهداف الشهرية</h1>
+
+                        <p class="section-description" data-i18n="monthlyDescription">
+                            حددي نتائج واضحة عايزة توصليلها خلال الشهر.
+                        </p>
+                    </div>
+
+                    <article class="panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h2 data-i18n="monthlyListTitle">خطة الشهر</h2>
+                                <p class="muted-text" data-i18n="monthlyListDescription">
+                                    كل هدف هنا بيمثّل خطوة في خطتك الأكبر.
+                                </p>
+                            </div>
+
+                            <span class="count-badge" id="monthlyGoalCount">0</span>
+                        </div>
+
+                        <form id="monthlyGoalForm" class="entry-form">
+
+                            <label class="visually-hidden" for="monthlyGoalInput" data-i18n="monthlyInputLabel">
+                                الهدف الشهري
+                            </label>
+
+                            <input
+                                id="monthlyGoalInput"
+                                type="text"
+                                maxlength="200"
+                                placeholder="اكتبي هدفك الشهري..."
+                                data-i18n-placeholder="monthlyPlaceholder"
+                                required
+                            >
+
+                            <button class="primary-button" type="submit">
+                                <span aria-hidden="true">+</span>
+                                <span data-i18n="addGoal">إضافة هدف</span>
+                            </button>
+
+                        </form>
+
+                        <div id="monthlyGoalList" class="goal-list"></div>
+
+                        <div class="empty-state" id="monthlyGoalsEmpty">
+                            <span class="empty-state-icon">▦</span>
+                            <p data-i18n="emptyMonthly">
+                                مفيش أهداف شهرية لسه.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- القسم الخامس: الأهداف السنوية -->
+                <section
+                    class="content-section"
+                    id="section-yearly"
+                    data-title="yearlyGoals"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="yearlyEyebrow">
+                            الصورة الأكبر لحياتك
+                        </p>
+
+                        <h1 data-i18n="yearlyTitle">الأهداف السنوية</h1>
+
+                        <p class="section-description" data-i18n="yearlyDescription">
+                            احتفظي برؤيتك للعام، وتابعي تقدمك نحوها.
+                        </p>
+                    </div>
+
+                    <article class="panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h2 data-i18n="yearlyListTitle">رؤيتك لهذا العام</h2>
+                                <p class="muted-text" data-i18n="yearlyListDescription">
+                                    اكتبي الأهداف اللي تستحق وقتك ومجهودك.
+                                </p>
+                            </div>
+
+                            <span class="count-badge" id="yearlyGoalCount">0</span>
+                        </div>
+
+                        <form id="yearlyGoalForm" class="entry-form">
+
+                            <label class="visually-hidden" for="yearlyGoalInput" data-i18n="yearlyInputLabel">
+                                الهدف السنوي
+                            </label>
+
+                            <input
+                                id="yearlyGoalInput"
+                                type="text"
+                                maxlength="200"
+                                placeholder="اكتبي هدفك السنوي..."
+                                data-i18n-placeholder="yearlyPlaceholder"
+                                required
+                            >
+
+                            <button class="primary-button" type="submit">
+                                <span aria-hidden="true">+</span>
+                                <span data-i18n="addGoal">إضافة هدف</span>
+                            </button>
+
+                        </form>
+
+                        <div id="yearlyGoalList" class="goal-list"></div>
+
+                        <div class="empty-state" id="yearlyGoalsEmpty">
+                            <span class="empty-state-icon">◇</span>
+                            <p data-i18n="emptyYearly">
+                                مفيش أهداف سنوية لسه.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- القسم السادس: التقارير -->
+                <section
+                    class="content-section"
+                    id="section-reports"
+                    data-title="reports"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="reportsEyebrow">
+                            التقدم بالأرقام
+                        </p>
+
+                        <h1 data-i18n="reportsTitle">التقارير والإنجازات</h1>
+
+                        <p class="section-description" data-i18n="reportsDescription">
+                            تابعي ما أنجزتيه بناءً على بياناتك الفعلية.
+                        </p>
+                    </div>
+
+                    <div class="stats-grid report-stats">
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="completedTasks">
+                                    المهام المكتملة
+                                </span>
+                                <span class="stat-icon">✓</span>
+                            </div>
+
+                            <div class="stat-value" id="reportCompletedTasks">0</div>
+
+                            <div class="stat-footnote" data-i18n="reportTasksFootnote">
+                                إجمالي المهام التي أنجزتيها
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="completedGoals">
+                                    الأهداف المكتملة
+                                </span>
+                                <span class="stat-icon">◇</span>
+                            </div>
+
+                            <div class="stat-value" id="reportCompletedGoals">0</div>
+
+                            <div class="stat-footnote" data-i18n="reportGoalsFootnote">
+                                إجمالي الأهداف التي حققتيها
+                            </div>
+                        </article>
+
+                        <article class="stat-card highlight-stat">
+                            <div class="stat-card-top">
+                                <span class="stat-label" data-i18n="overallProgress">
+                                    التقدم الإجمالي
+                                </span>
+                                <span class="stat-icon">↗</span>
+                            </div>
+
+                            <div class="stat-value">
+                                <span id="reportProgress">0</span>%
+                            </div>
+
+                            <div class="stat-footnote" data-i18n="reportProgressFootnote">
+                                نسبة الإنجاز من إجمالي العناصر
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <article class="panel report-summary-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow" data-i18n="yourJourney">
+                                    رحلتك
+                                </p>
+
+                                <h2 data-i18n="progressSummary">ملخص تقدمك</h2>
+                            </div>
+                        </div>
+
+                        <p id="reportSummary" class="report-summary" data-i18n="reportEmpty">
+                            لسه في بداية رحلتك. أضيفي مهامك وأهدافك عشان يظهر تقدمك هنا.
+                        </p>
+                    </article>
+
+                </section>
+
+
+                <!-- القسم السابع: الإعدادات -->
+                <section
+                    class="content-section"
+                    id="section-settings"
+                    data-title="settings"
+                    hidden
+                >
+
+                    <div class="page-heading">
+                        <p class="eyebrow" data-i18n="settingsEyebrow">
+                            خصصي تجربتك
+                        </p>
+
+                        <h1 data-i18n="settingsTitle">الإعدادات</h1>
+
+                        <p class="section-description" data-i18n="settingsDescription">
+                            اختاري الإعدادات اللي تناسب طريقة استخدامك.
+                        </p>
+                    </div>
+
+                    <article class="panel settings-panel">
+
+                        <div class="settings-row">
+                            <div class="settings-copy">
+                                <h2 data-i18n="languageSetting">لغة الموقع</h2>
+
+                                <p class="muted-text" data-i18n="languageDescription">
+                                    اختاري اللغة اللي تفضليها.
+                                </p>
+                            </div>
+
+                            <select id="languageSelect" aria-label="لغة الموقع">
+                                <option value="ar">العربية</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-row">
+                            <div class="settings-copy">
+                                <h2 data-i18n="storageSetting">حفظ البيانات</h2>
+
+                                <p class="muted-text" data-i18n="storageDescription">
+                                    النسخة الأولية تحفظ بياناتك على هذا المتصفح فقط.
+                                </p>
+                            </div>
+
+                            <span class="status-badge" id="storageStatus" data-i18n="localStorage">
+                                حفظ محلي
+                            </span>
+                        </div>
+
+                        <div class="settings-row">
+                            <div class="settings-copy">
+                                <h2 data-i18n="accountSetting">الحساب والمزامنة</h2>
+
+                                <p class="muted-text" data-i18n="accountDescription">
+                                    تسجيل الدخول والمزامنة السحابية هيتضافوا بعد اختبار النسخة الأساسية.
+                                </p>
+                            </div>
+
+                            <span class="status-badge pending" data-i18n="comingLater">
+                                مرحلة لاحقة
+                            </span>
+                        </div>
+
+                        <div class="settings-note">
+                            <span class="progress-note-icon">i</span>
+
+                            <p data-i18n="settingsNote">
+                                بيانات النسخة المحلية مرتبطة بالمتصفح والجهاز الحالي، وقد لا تظهر على جهاز آخر.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </section>
+
+            </div>
+
+
+            <!-- إشعارات الموقع -->
+            <div
+                class="toast"
+                id="toast"
+                role="status"
+                aria-live="polite"
+                hidden
+            ></div>
+
+
+            <!-- التذييل -->
+            <footer class="main-footer">
+                <span data-i18n="footerText">
+                    ابني حياتك خطوة بخطوة.
+                </span>
+
+                <span class="footer-brand">MORGAN</span>
+            </footer>
+
+        </main>
+
+    </div>
+</body>
+</html>
+```
